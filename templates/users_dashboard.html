@@ -14,15 +14,21 @@
             <table class="table table-bordered border-primary">
                 <h2 class="text-center"> Here Are Our Users !!!</h2>
                 <tr>
+                    <th>Id</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
                 </tr>
                 {% for new_user in myusers%}
                 <tr>
+                    <td>{{new_user.id}}</td>
                     <td>{{new_user.first_name}}</td>
                     <td>{{new_user.last_name}}</td>
                     <td>{{new_user.email}}</td>
+                    <td>{{new_user.created_at}}</td>
+                    <td><a href="/show/{{new_user.id}}">Show</a> | <a href="/user/edit/{{new_user.id}}">Edit</a> | <a href="/delete/{{new_user.id}}">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>

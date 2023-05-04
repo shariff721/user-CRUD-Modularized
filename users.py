@@ -13,8 +13,8 @@ class User:
 
     @classmethod
     def save(cls,data):
-        query = """ INSERT INTO users (first_name, last_name, email)
-                VALUES (%(first_name)s, %(last_name)s, %(email)s)"""
+        query = """ INSERT INTO users (first_name, last_name, email, updated_at)
+                VALUES (%(first_name)s, %(last_name)s, %(email)s, NOW())"""
         result = connectToMySQL(cls.DB).query_db(query,data)
         return result 
     
@@ -28,6 +28,24 @@ class User:
         for user in results:
             all_users.append(cls(user))
         return all_users
+    
+    @classmethod
+    def get_one(cls,user_id):
+        query = """ SELECT * FROM users WHERE id = %(id)s """
+        results = connectToMySQL(cls.DB).query_db(query,{"id":user_id})
+        return cls(results[0])
+    
+    @classmethod
+    def editUser(cls,data):
+        query = """ UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s
+                WHERE id = %(id)s"""
+        return connectToMySQL(cls.DB).query_db(query,data)
+    
+    @classmethod
+    def deleteUser(cls,user_id):
+        query = """ DELETE FROM users WHERE id = %(id)s;"""
+        return connectToMySQL(cls.DB).query_db(query, {"id":user_id})
+    
 
     
 
