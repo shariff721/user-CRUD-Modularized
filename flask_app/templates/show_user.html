@@ -15,9 +15,9 @@
             <p></p>
             <p>Email: {{one_user.email}}</p>
             <p></p>
-            <p>Created On: {{one_user.created_at}}</p>
+            <p>Created On: {{one_user.created_at.strftime("%c")}}</p>
             <p></p>
-            <p>Last Updated On: {{one_user.updated_at}}</p>
+            <p>Last Updated On: {{one_user.updated_at.strftime("%c")}}</p>
         </div>
         <div class="box2 w-50">
             <p><a href="/user/edit/{{one_user.id}}" class="btn btn-primary">Edit</a> | <a href="/delete/{{one_user.id}}" class="btn btn-danger">Delete</a></p>
