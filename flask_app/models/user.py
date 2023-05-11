@@ -54,6 +54,14 @@ class User:
     def validate_user(user):
         is_valid = True
 
+        if len(user['first_name']) < 3:
+            flash("Name must be atleat 3 characters.")
+            is_valid = False
+
+        if len(user['last_name']) < 3:
+            flash("Name must be atleast 3 characters.")
+            is_valid = False
+
         if not EMAIL_REGEX.match(user['email']):
             flash("Invalid email address!")
             is_valid = False
