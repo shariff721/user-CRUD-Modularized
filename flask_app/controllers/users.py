@@ -10,15 +10,11 @@ def index():
 
 @app.route('/add_entry', methods = ["POST"])
 def add_entry():
-    data = {
-        "first_name": request.form["first_name"],
-        "last_name": request.form["last_name"],
-        "email": request.form["email"]
-    }
-
-    result = User.save(data)
-
-    return redirect(f'/show/{result}')
+    if not User.validate_user(request.form):
+            return redirect('/')
+    else:
+            result = User.save(request.form)
+            return redirect(f'/show/{result}')
 
 
 @app.route('/user/dashboard')
@@ -36,8 +32,11 @@ def show_one(user_id):
 
 @app.route('/update', methods = ["POST"])
 def update():
-    User.editUser(request.form)
-    return redirect('/user/dashboard')
+    if not User.validate_user(request.form):
+            return redirect(request.referrer)
+    else:
+            User.editUser(request.form)
+            return redirect('/user/dashboard')
 
 @app.route('/user/edit/<int:user_id>')
 def edit(user_id):
